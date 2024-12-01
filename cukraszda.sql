@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Dec 01. 15:31
+-- Létrehozás ideje: 2024. Dec 01. 19:50
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.0.28
 
@@ -27,15 +27,11 @@ SET time_zone = "+00:00";
 -- Tábla szerkezet ehhez a táblához `ar`
 --
 
-CREATE DATABASE feladatsec;
-
-USE feladatsec;
-
 CREATE TABLE `ar` (
   `id` int(11) NOT NULL,
   `sutiid` int(11) NOT NULL,
   `ertek` int(11) NOT NULL,
-  `egyseg` text NOT NULL
+  `egyseg` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -432,7 +428,7 @@ CREATE TABLE `sutik` (
 CREATE TABLE `tartalom` (
   `id` int(11) NOT NULL,
   `sutiid` int(11) NOT NULL,
-  `mentes` text NOT NULL,
+  `mentes` varchar(255) DEFAULT NULL,
   `nev` varchar(255) DEFAULT NULL,
   `suti_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -609,17 +605,20 @@ ALTER TABLE `uzenet_osztaly`
 --
 -- Megkötések a kiírt táblákhoz
 --
-ALTER TABLE `ar`
-    ADD CONSTRAINT `ar_ibfk_1`
-        FOREIGN KEY (`sutiid`) REFERENCES `suti`(`id`)
-            ON DELETE CASCADE;
 
+--
+-- Megkötések a táblához `ar`
+--
+ALTER TABLE `ar`
+  ADD CONSTRAINT `ar_ibfk_1` FOREIGN KEY (`sutiid`) REFERENCES `suti` (`id`);
+
+--
+-- Megkötések a táblához `tartalom`
+--
 ALTER TABLE `tartalom`
-    ADD CONSTRAINT `tartalom_ibfk_2`
-        FOREIGN KEY (`sutiid`) REFERENCES `suti`(`id`)
-            ON DELETE CASCADE;
+  ADD CONSTRAINT `tartalom_ibfk_2` FOREIGN KEY (`sutiid`) REFERENCES `suti` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
