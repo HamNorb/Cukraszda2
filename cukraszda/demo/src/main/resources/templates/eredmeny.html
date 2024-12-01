@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet" th:href="@{/css/stilus.css}">
+<h1>Result</h1>
+<p th:text="'id: ' + ${attr2.id}" />
+<p th:text="'content: ' + ${attr2.content}" />
+<a href="/feladat">Submit another message</a>
+</body>
+</html>
