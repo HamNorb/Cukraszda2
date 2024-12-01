@@ -1,6 +1,6 @@
 body 
 {
-background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url(../images/fooldal.jpg);
+    background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('../images/fooldal.jpg');
 padding-left: 11em;
 padding-right: 20em;
 font-family:
