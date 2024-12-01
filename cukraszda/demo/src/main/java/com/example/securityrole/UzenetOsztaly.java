@@ -1,16 +1,18 @@
 package com.example.securityrole;
 
-public class UzenetOsztaly{
-private long id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-    public String getContent() {
-        return content;
-    }
+@Entity
+public class UzenetOsztaly {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String content;
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
+    // Getterek és setterek
     public long getId() {
         return id;
     }
@@ -19,5 +21,11 @@ private long id;
         this.id = id;
     }
 
-    private String content;
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
