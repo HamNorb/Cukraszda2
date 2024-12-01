@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+</head>
+<body>
+<div th:insert="menu"></div>
+<link rel="stylesheet" th:href="@{/css/stilus.css}">
+<h1>Messages</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Message</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="message : ${messages}">
+        <td th:text="${message.id}"></td>
+        <td th:text="${message.content}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
