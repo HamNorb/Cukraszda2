@@ -2,15 +2,16 @@
      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
      class="background-div">
     <div>
-        <span sec:authorize="isAnonymous()">
-            <a th:href="@{/login}">Login</a>
-            <a th:href="@{/regisztral}">Regisztrál</a>
-            <a th:href="@{/home2}">home2</a>
-        </span>
+<span sec:authorize="isAnonymous()">
+    <a th:href="@{/login}" class="custom-button">Belépés</a>
+    <a th:href="@{/regisztral}" class="custom-button">Regisztrál</a>
+    <a th:href="@{/home2}" class="custom-button">Home2</a>
+</span>
         <span sec:authorize="isAuthenticated()">
-            <a th:href="@{/home}">Home</a>
-            <a th:href="@{/logout}">Logout</a>
-        </span>
+    <a th:href="@{/home}" class="custom-button">Home</a>
+    <a th:href="@{/logout}" class="custom-button">Logout</a>
+            <a th:href="@{/home2}" class="custom-button">Home2</a>
+</span>
         <span sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{/admin/home}">Admin</a>
         </span>

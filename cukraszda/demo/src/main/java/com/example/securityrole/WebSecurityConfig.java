@@ -27,23 +27,23 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(
-                        auth -> auth
-                                .requestMatchers ("/resources/**", "/", "/regisztral", "/regisztral_feldolgoz", "/home2", "/css/stilus.css", "/css/*", "/images/*").anonymous()
-                                .requestMatchers("/resources/**", "/","/home").authenticated()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/css/**", "/images/**", "/js/**").permitAll() // Statikus fájlok engedélyezése
+                        .requestMatchers("/", "/regisztral", "/regisztral_feldolgoz", "/home2").permitAll() // Anonim hozzáférés
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // Admin oldalak
+                        .anyRequest().authenticated() // Minden máshoz bejelentkezés szükséges
                 )
-                .formLogin(
-                        form -> form
-                                .defaultSuccessUrl("/home").permitAll()
-                ).logout(
-                        logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/")
-                                .permitAll()
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/home", true).permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/")
+                        .permitAll()
                 );
         return http.build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

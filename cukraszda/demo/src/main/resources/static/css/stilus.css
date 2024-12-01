@@ -71,3 +71,22 @@ footer {
     padding: 5px 20px;
 
 }
+
+.custom-button {
+    display: inline-block; /* Gombként viselkedjen */
+    padding: 10px 20px; /* Tedd nagyobbá a gombokat */
+    font-family: "Times New Roman", Times, serif; /* Betűtípus */
+    font-size: 16px; /* Betűméret */
+    color: white; /* Szöveg színe */
+    background-color: #FF69B4; /* Gomb színe (pl. kék) */
+    border: none; /* Távolítsd el az alapértelmezett keretet */
+    border-radius: 5px; /* Lekerekített sarkok */
+    text-decoration: none; /* Távolítsd el az aláhúzást */
+    text-align: center; /* Szöveg igazítása */
+    cursor: pointer; /* Mutató jelenjen meg hover esetén */
+    transition: background-color 0.3s ease; /* Animáció hover-hez */
+}
+
+.custom-button:hover {
+    background-color: #FF1493; /* Sötétebb kék hover esetén */
+}
