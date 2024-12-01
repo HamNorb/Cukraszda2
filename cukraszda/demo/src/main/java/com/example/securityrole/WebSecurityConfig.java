@@ -29,7 +29,7 @@ public class WebSecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/images/**", "/js/**").permitAll() // Statikus fájlok engedélyezése
-                        .requestMatchers("/", "/regisztral", "/regisztral_feldolgoz", "/home2", "/fooldal", "/feladat", "/feladat2", "/eredmeny", "/messages", "/index").permitAll() // Anonim hozzáférés
+                        .requestMatchers("/", "/regisztral", "/regisztral_feldolgoz", "/home2", "/fooldal", "/feladat", "/feladat2", "/eredmeny", "/messages", "/index", "/sutik", "/suti").permitAll() // Anonim hozzáférés
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Admin oldalak
                         .anyRequest().authenticated() // Minden máshoz bejelentkezés szükséges
                 )

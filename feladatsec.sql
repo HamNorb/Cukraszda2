@@ -27,6 +27,10 @@ SET time_zone = "+00:00";
 -- Tábla szerkezet ehhez a táblához `ar`
 --
 
+CREATE DATABASE feladatsec;
+
+USE feladatsec;
+
 CREATE TABLE `ar` (
   `id` int(11) NOT NULL,
   `sutiid` int(11) NOT NULL,
@@ -605,20 +609,17 @@ ALTER TABLE `uzenet_osztaly`
 --
 -- Megkötések a kiírt táblákhoz
 --
-
---
--- Megkötések a táblához `ar`
---
 ALTER TABLE `ar`
-  ADD CONSTRAINT `ar_ibfk_1` FOREIGN KEY (`sutiid`) REFERENCES `suti` (`id`);
+    ADD CONSTRAINT `ar_ibfk_1`
+        FOREIGN KEY (`sutiid`) REFERENCES `suti`(`id`)
+            ON DELETE CASCADE;
 
---
--- Megkötések a táblához `tartalom`
---
 ALTER TABLE `tartalom`
-  ADD CONSTRAINT `tartalom_ibfk_2` FOREIGN KEY (`sutiid`) REFERENCES `suti` (`id`);
-COMMIT;
+    ADD CONSTRAINT `tartalom_ibfk_2`
+        FOREIGN KEY (`sutiid`) REFERENCES `suti`(`id`)
+            ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

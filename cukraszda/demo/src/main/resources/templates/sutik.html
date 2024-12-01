@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sütik</title>
+    <link rel="stylesheet" th:href="@{/css/stilus.css}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="menu"></div>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Sütik</h2>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Nev</th>
+            <th>Típus</th>
+            <th>Ország Tortája Verseny</th>
+            <th>Mentes</th>
+            <th>Ár</th>
+            <th>Egység</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${sutiTartalomArak}">
+            <td th:text="${item.nev}"></td>
+            <td th:text="${item.tipus}"></td>
+            <td th:text="${item.dijazott_string}"></td>
+            <td th:text="${item.mentes}"></td>
+            <td th:text="${item.ertek}"></td>
+            <td th:text="${item.egyseg}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Optional: Bootstrap JS (for interactive components, if needed) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
