@@ -6,8 +6,29 @@
   <title>User Home</title>
   <link rel="stylesheet" th:href="@{/css/stilus.css}">
 </head>
+<div>
+  <br/><br/>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Név</th>
+      <th>Cím</th>
+      <th>Kor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <div th:insert="menu"></div>
+    <tr th:each="suti : ${dolgozok}">
+      <td th:text="${suti.id}"></td>
+      <td th:text="${suti.nev}"></td>
+      <td th:text="${suti.tipus}"></td>
+      <td th:text="${suti.dijazott}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 <body>
-<div th:insert="menu"></div>
 <h1>Only logged in users can see this page.</h1>
 </body>
 </html>
