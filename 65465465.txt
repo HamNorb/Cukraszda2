@@ -1,0 +1,104 @@
+// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+#include<ctime>
+#include <xmmintrin.h> // SSE utasításokhoz
+#include <float.h>     // FLT_MAX
+#include <algorithm>
+using namespace std;
+int main()
+{
+    double* A; //dinamukis tömbökhöz mutatók
+    A = new double[16000];
+
+    int saveesp, _ecx;
+
+    //test feltöltés?
+    _asm
+    {
+        mov saveesp, ESP;
+        //srand((unsigned)time(NULL));
+        push 0;
+        call time;
+        push eax;
+        call srand;
+
+    }
+    int szamlalo, nevezo;
+
+    //tömbfeltöltés A
+    _asm
+    {
+        mov ecx, 16000;
+        mov esi, 0;
+    ciklus_feltolt_A:
+        mov _ecx, ecx;
+        call rand;
+        inc eax;
+        mov szamlalo, eax;
+        call rand;
+        inc eax;
+        mov nevezo, eax;
+        cvtsi2ss xmm0, szamlalo;
+        cvtss2sd xmm1, xmm0; //xmm1-ben számláló
+        cvtsi2ss xmm0, nevezo;
+        cvtss2sd xmm2, xmm0; //xmm1-ben nevező
+        divsd xmm1, xmm2;
+        //memóriacím a tároláshoz
+        mov ebx, dword ptr[A];
+        add ebx, esi;
+        movsd[ebx], xmm1;
+        //ciklus vége
+        add esi, 8;
+        mov ecx, _ecx;
+        loop ciklus_feltolt_A;
+    }
+
+
+
+    // A minimum kereséséhez használt változó
+    double minVal = DBL_MAX; // Kezdő érték a legnagyobb double szám
+
+    // Assembly blokk SSE utasításokkal
+    __asm {
+        mov esi, A; A tömb címének betöltése az esi regiszterbe
+        mov ecx, 16000; Az A tömb elemeinek száma
+        movsd xmm0, qword ptr[esi]; Első elem betöltése az xmm0 regiszterbe
+        add esi, 8; Következő elem címe
+
+        MinLoop :
+        cmp ecx, 1; Ha ecx <= 1, kilépünk
+            je MinEnd
+
+            movsd xmm1, qword ptr[esi]; Következő elem betöltése az xmm1 regiszterbe
+            minsd xmm0, xmm1; xmm0 < -min(xmm0, xmm1)
+            add esi, 8; Következő elem címe
+            dec ecx; Csökkentjük az elemek számát
+            jmp MinLoop; Folytatjuk a ciklust
+
+            MinEnd :
+        movsd minVal, xmm0; Az xmm0 tartalmát átmásoljuk a minVal változóba
+    }
+
+    // Minimum érték kiírása
+    cout << "Minimum ertek: " << minVal << endl;
+
+    std::sort(A, A + 16000);
+    cout << "Ellenorzes C++-al: ";
+    cout << A[0]; //So in ascending order obviously the 1st element must be the smaller one than all the remaining since ascending order starts from small to big
+
+    //dinamikus memria felszabadítás
+    delete[] A;
+    //esp visszaállítás
+    _asm
+    {
+        mov esp, saveesp;
+    }
+
+
+
+
+}
+
+
